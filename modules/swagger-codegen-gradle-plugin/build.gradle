@@ -1,0 +1,26 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+task wrapper(type: Wrapper) {
+	description = 'Generates gradlew and gradlew.bat scripts'
+	gradleVersion = '4.6'
+	/*
+	* Reasoning for using BIN:
+	* https://github.com/junit-team/junit5/pull/1012#discussion_r132061924
+	*/
+	distributionType = Wrapper.DistributionType.BIN
+}

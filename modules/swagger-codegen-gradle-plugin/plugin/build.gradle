@@ -1,0 +1,44 @@
+plugins {
+    id 'java-library'
+    id 'idea'
+}
+
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
+dependencies {
+	implementation localGroovy()
+	implementation gradleApi()
+	implementation fileTree(dir: 'target/dependencies/compile', include: '*.jar')
+	testImplementation gradleTestKit()
+	testImplementation 'org.apache.commons:commons-compress:1.13'
+	testImplementation fileTree(dir: 'target/dependencies/test', include: '*.jar')
+}
+
+jar {
+	manifest {
+		attributes 'Implementation-Version': (version ? version : 'unknown')
+	}
+}
+test {
+	testLogging {
+		events "passed", "skipped", "failed"
+	}
+}
+
+task sourcesJar(type: Jar) {
+	classifier = 'sources'
+	from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar) {
+	classifier = "javadoc"
+	from javadoc
+}
+
+artifacts {
+	archives sourcesJar
+	archives javadocJar
+}
